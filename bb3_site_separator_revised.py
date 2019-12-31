@@ -32,7 +32,6 @@ line_of_text = f.readline()
 
 while line_of_text:
         parsed_line = parse(line_fmt, line_of_text)
-        # print(parsed_line)
         # this checks if the date is in correct format, assumes data will be correct if date is
         try:
             time_of_sample = "{}/{}/{} {}:{}:{}".format(
@@ -40,7 +39,7 @@ while line_of_text:
                 parsed_line[3], parsed_line[4], parsed_line[5]
             )
             dt = datetime.strptime(time_of_sample, dt_fmt)
-        except Exception:  # the errors involves looping the error 46 times, then continuing
+        except Exception:
             print(time_of_sample)
             # puts error lines into a file
             error_file = open('files_with_errors.txt', "a")
@@ -55,7 +54,6 @@ while line_of_text:
 
         # checks to make sure time is not negative, would mean error
         if dt_current - dt_prev < timedelta(milliseconds=0):
-            print(dt_current, dt_prev)
             error_file = open('files_with_errors.txt', "a")
             error_file.write(line_of_text)
             line_of_text = f.readline()
